@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// LoadClient ...
 type LoadClient struct {
 	ID         int
 	URL        string
@@ -14,6 +15,7 @@ type LoadClient struct {
 	Logger     *log.Logger
 }
 
+// NewLoadClient ...
 func NewLoadClient(id int, url string, logger *log.Logger) *LoadClient {
 	return &LoadClient{
 		ID:         id,
@@ -23,6 +25,7 @@ func NewLoadClient(id int, url string, logger *log.Logger) *LoadClient {
 	}
 }
 
+// Run ...
 func (lc *LoadClient) Run(ctx context.Context, interval time.Duration) {
 	for {
 		select {
@@ -44,6 +47,7 @@ func (lc *LoadClient) Run(ctx context.Context, interval time.Duration) {
 	}
 }
 
+// LoadTester ...
 type LoadTester struct {
 	Connections int
 	RPS         int
@@ -52,6 +56,7 @@ type LoadTester struct {
 	Logger      *log.Logger
 }
 
+// NewLoadTester ...
 func NewLoadTester(url string, connections, rps int, duration time.Duration, logger *log.Logger) *LoadTester {
 	clients := []*LoadClient{}
 	for i := 0; i < connections; i++ {
@@ -67,6 +72,7 @@ func NewLoadTester(url string, connections, rps int, duration time.Duration, log
 	}
 }
 
+// Run ...
 func (lt *LoadTester) Run() {
 	ctx, cancel := context.WithTimeout(context.Background(), lt.Duration)
 	defer cancel()

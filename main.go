@@ -31,6 +31,7 @@ func main() {
 	loadTester.Run()
 }
 
+// Options ...
 type Options struct {
 	URL         string
 	Connections int
