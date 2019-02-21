@@ -27,7 +27,17 @@ func (lc *LoadClient) Run(ctx context.Context, interval time.Duration) {
 	for {
 		select {
 		case <-time.After(interval):
-			lc.Logger.Printf("clientID: %d\n", lc.ID)
+			req, err := http.NewRequest("GET", lc.URL, nil)
+			if err != nil {
+				return
+			}
+
+			resp, err := lc.HTTPClient.Do(req)
+			if err != nil {
+				return
+			}
+			defer resp.Body.Close()
+			lc.Logger.Printf("status: %d (client%d)\n", resp.StatusCode, lc.ID)
 		case <-ctx.Done():
 			return
 		}
