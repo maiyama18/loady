@@ -35,19 +35,19 @@ func main() {
 type Options struct {
 	URL         string
 	Connections int
-	RPS         int
+	RPS         float64
 	Duration    int
 }
 
 func parseOptions() (*Options, error) {
 	url := flag.String("url", "", "url to access")
 	connections := flag.Int("connections", 0, "number of connections")
-	rps := flag.Int("rps", 0, "request per second")
+	rps := flag.Float64("rps", 0.0, "request per second")
 	duration := flag.Int("duration", 0, "duration to stress load")
 
 	flag.Parse()
 
-	if *url == "" || *connections == 0 || *rps == 0 || *duration == 0 {
+	if *url == "" || *connections == 0 || *rps == 0.0 || *duration == 0 {
 		return nil, errors.New("some options are not given")
 	}
 

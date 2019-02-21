@@ -3,6 +3,7 @@ const express = require('express')
 
 const app = express()
 const server = http.createServer(app)
+server.keepAliveTimeout = 30 * 1000
 
 let startTime = null
 app.get('/', (req, resp) => {
